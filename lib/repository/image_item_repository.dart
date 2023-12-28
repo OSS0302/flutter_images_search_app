@@ -3,7 +3,7 @@ import 'package:flutter_image_search_app/mapper/image_mapper.dart';
 import 'package:flutter_image_search_app/model/image_item.dart';
 
 abstract interface class ImageItemRepository {
-  Future<List<ImageItem>> getImageItmes(String query);
+  Future<List<ImageItem>> getImageItems(String query);
 }
 
 @override
@@ -11,7 +11,7 @@ class PixabayImageItemRepository implements ImageItemRepository {
   final _api = PixabayApi();
 
   @override
-  Future<List<ImageItem>> getImageItmes(String query) async {
+  Future<List<ImageItem>> getImageItems(String query) async {
     final dto = await _api.getImagesResult(query);
 
     if (dto.hits == null) {
@@ -23,7 +23,7 @@ class PixabayImageItemRepository implements ImageItemRepository {
 
 class MockImageItemRepository implements ImageItemRepository {
   @override
-  Future<List<ImageItem>> getImageItmes(String query) async {
+  Future<List<ImageItem>> getImageItems(String query) async {
    await Future.delayed(Duration(seconds: 1));
     if (query == 'apple') {
       return [
@@ -49,4 +49,5 @@ class MockImageItemRepository implements ImageItemRepository {
       ];
     }
   }
+
 }
