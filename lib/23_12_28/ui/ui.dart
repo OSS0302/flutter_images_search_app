@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_search_app/23_12_28/repository/image_repository.dart';
+import 'package:flutter_image_search_app/23_12_28/repository/image_item_repository.dart';
 import 'package:flutter_image_search_app/model/image_item.dart';
 import 'package:flutter_image_search_app/widget/image_item_widget.dart';
 
