@@ -2,7 +2,8 @@ class PixabayDto {
   PixabayDto({
     this.total,
     this.totalHits,
-    this.hits,});
+    this.hits,
+  });
 
   PixabayDto.fromJson(dynamic json) {
     total = json['total'];
@@ -14,6 +15,7 @@ class PixabayDto {
       });
     }
   }
+
   num? total;
   num? totalHits;
   List<Hits>? hits;
@@ -27,7 +29,6 @@ class PixabayDto {
     }
     return map;
   }
-
 }
 
 class Hits {
@@ -53,7 +54,8 @@ class Hits {
     this.comments,
     this.userId,
     this.user,
-    this.userImageURL,});
+    this.userImageURL,
+  });
 
   Hits.fromJson(dynamic json) {
     id = json['id'];
@@ -79,6 +81,7 @@ class Hits {
     user = json['user'];
     userImageURL = json['userImageURL'];
   }
+
   num? id;
   String? pageURL;
   String? type;
@@ -128,5 +131,4 @@ class Hits {
     map['userImageURL'] = userImageURL;
     return map;
   }
-
 }
