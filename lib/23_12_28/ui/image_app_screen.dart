@@ -12,22 +12,10 @@ class ImageScreen extends StatefulWidget {
 class _ImageScreenState extends State<ImageScreen> {
   final searchTextEditingController = TextEditingController();
 
-  final repository = PixabayImageItemRepository();
+
 
   List<ImageItem> imageItems = [];
-  bool isLoading = false;
 
-  Future<void> searchImage(String query) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    imageItems = await repository.getImageItems(query);
-
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   @override
   void dispose() {
@@ -66,8 +54,9 @@ class _ImageScreenState extends State<ImageScreen> {
                       Icons.search,
                       color: Color(0xFF4FB6B2),
                     ),
-                    onPressed: () =>
-                        searchImage(searchTextEditingController.text),
+                    onPressed: () {
+                      setState(() {});
+                    },
                   ),
                 ),
               ),
