@@ -24,7 +24,7 @@ class _ImageScreenState extends State<ImageScreen> {
 
     imageItems = await repository.getImageItems(query);
 
-      setState(() {
+    setState(() {
       isLoading = false;
     });
   }
@@ -48,25 +48,23 @@ class _ImageScreenState extends State<ImageScreen> {
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    // 둥글게 만들기 위해 BorderRadius 설정
                     borderSide: const BorderSide(
                       width: 2,
-                      color: Color(0xFF4FB6B2), // 외곽선 컬러 설정
+                      color: Color(0xFF4FB6B2),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    // 둥글게 만들기 위해 BorderRadius 설정
                     borderSide: const BorderSide(
                       width: 2,
-                      color: Color(0xFF4FB6B2), // 외곽선 컬러 설정
+                      color: Color(0xFF4FB6B2),
                     ),
                   ),
                   hintText: 'Search',
                   suffixIcon: IconButton(
                     icon: const Icon(
                       Icons.search,
-                      color: Color(0xFF4FB6B2), // 외곽선 컬러 설정
+                      color: Color(0xFF4FB6B2),
                     ),
                     onPressed: () =>
                         searchImage(searchTextEditingController.text),
@@ -74,30 +72,38 @@ class _ImageScreenState extends State<ImageScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Expanded(
-                      child: GridView.builder(
-                        itemCount: imageItems.length,
-                        itemBuilder: (context, index) {
-                          final imageItem = imageItems[index];
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image.network(
-                              imageItem.imageUrl,
-                              // 이미지 경로
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        },
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 32,
-                          mainAxisSpacing: 32,
-                        ),
+              FutureBuilder<List<ImageItem>>(
+                future: PixabayImageItemRepository()
+                    .getImageItems(searchTextEditingController.text),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const CircularProgressIndicator();
+                  }
+                  final imageImages = snapshot.data!;
+                  print(imageImages);
+                  return Expanded(
+                    child: GridView.builder(
+                      itemCount: imageItems.length,
+                      itemBuilder: (context, index) {
+                        final imageItem = imageItems[index];
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image.network(
+                            imageItem.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 32,
+                        mainAxisSpacing: 32,
                       ),
                     ),
+                  );
+                },
+              ),
             ],
           ),
         ),
