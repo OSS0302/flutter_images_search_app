@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_search_app/23_12_28/model/image_item.dart';
 import 'package:flutter_image_search_app/23_12_28/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/23_12_28/ui/widget/image_widget.dart';
 
 class ImageScreen extends StatefulWidget {
   const ImageScreen({super.key});
@@ -11,10 +12,10 @@ class ImageScreen extends StatefulWidget {
 
 class _ImageScreenState extends State<ImageScreen> {
   final searchTextEditingController = TextEditingController();
+  final repository = PixabayImageItemRepository();
 
 
 
-  List<ImageItem> imageItems = [];
 
 
   @override
@@ -55,7 +56,9 @@ class _ImageScreenState extends State<ImageScreen> {
                       color: Color(0xFF4FB6B2),
                     ),
                     onPressed: () {
-                      setState(() {});
+                      setState(() {
+
+                      });
                     },
                   ),
                 ),
@@ -68,20 +71,14 @@ class _ImageScreenState extends State<ImageScreen> {
                   if (!snapshot.hasData) {
                     return const CircularProgressIndicator();
                   }
-                  final imageImages = snapshot.data!;
-                  print(imageImages);
+                  final imageItems = snapshot.data!;
+                  print(imageItems);
                   return Expanded(
                     child: GridView.builder(
                       itemCount: imageItems.length,
                       itemBuilder: (context, index) {
                         final imageItem = imageItems[index];
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image.network(
-                            imageItem.imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        );
+                        return ImageItemWidget(imageItem: imageItem);
                       },
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -99,4 +96,6 @@ class _ImageScreenState extends State<ImageScreen> {
       ),
     );
   }
+
+
 }

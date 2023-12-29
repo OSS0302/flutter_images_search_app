@@ -7,7 +7,7 @@ class PixabayApi {
   Future<PixabayDto> getImagesResult(String query) async {
 
     final response = await http.get(Uri.parse(
-        'https://pixabay.com/api/?key=38081108-118a6127b8642576a388e6c5e&q=$query&image_type=photo'));
+        'https://pixabay.com/api/?key=41482985-c526f1f433dbd01f22f58e852&q=$query&image_type=photo&pretty=true'));
     return PixabayDto.fromJson(jsonDecode(response.body));
   }
 }
