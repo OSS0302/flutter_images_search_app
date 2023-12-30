@@ -1,35 +1,40 @@
-class ImageItem{
+class ItemImage {
   String imageUrl;
+  String type;
   String tags;
 
 //<editor-fold desc="Data Methods">
-  ImageItem({
+  ItemImage({
     required this.imageUrl,
+    required this.type,
     required this.tags,
   });
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is ImageItem &&
+      (other is ItemImage &&
           runtimeType == other.runtimeType &&
           imageUrl == other.imageUrl &&
+          type == other.type &&
           tags == other.tags);
 
   @override
-  int get hashCode => imageUrl.hashCode ^ tags.hashCode;
+  int get hashCode => imageUrl.hashCode ^ type.hashCode ^ tags.hashCode;
 
   @override
   String toString() {
-    return 'ImageItem{ imageUrl: $imageUrl, tags: $tags,}';
+    return 'ItemImage{ imageUrl: $imageUrl, type: $type, tags: $tags,}';
   }
 
-  ImageItem copyWith({
+  ItemImage copyWith({
     String? imageUrl,
+    String? type,
     String? tags,
   }) {
-    return ImageItem(
+    return ItemImage(
       imageUrl: imageUrl ?? this.imageUrl,
+      type: type ?? this.type,
       tags: tags ?? this.tags,
     );
   }
@@ -37,13 +42,15 @@ class ImageItem{
   Map<String, dynamic> toJson() {
     return {
       'imageUrl': this.imageUrl,
+      'type': this.type,
       'tags': this.tags,
     };
   }
 
-  factory ImageItem.fromJson(Map<String, dynamic> json) {
-    return ImageItem(
+  factory ItemImage.fromJson(Map<String, dynamic> json) {
+    return ItemImage(
       imageUrl: json['imageUrl'] as String,
+      type: json['type'] as String,
       tags: json['tags'] as String,
     );
   }
