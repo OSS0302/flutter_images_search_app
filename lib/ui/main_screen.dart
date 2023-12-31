@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_search_app/model/image_item.dart';
 import 'package:flutter_image_search_app/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/ui/main_view_model.dart';
 import 'package:flutter_image_search_app/widget/image_item_widget.dart';
 
 class MainScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final viewModel = MainViewModel();
   final searchTextEditingController = TextEditingController();
 
 
@@ -49,18 +51,18 @@ class _MainScreenState extends State<MainScreen> {
                   suffixIcon: IconButton(
                     icon: Icon(Icons.search, color: Color(0xFF4FB6B2)),
                     onPressed: () =>
-                        searchImage(searchTextEditingController.text),
+                        viewModel.searchImage(searchTextEditingController.text),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
-              isLoading
+              viewModel.isLoading
               ? Center(child: CircularProgressIndicator())
               : Expanded(
                 child: GridView.builder(
-                  itemCount: imageItems.length,
+                  itemCount: viewModel.imageItems.length,
                   itemBuilder: (context, index) {
-                    final imageItem = imageItems[index];
+                    final imageItem = viewModel.imageItems[index];
                     return ImageItemWidget(imageItem: imageItem);
                   },
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
