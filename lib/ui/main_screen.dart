@@ -12,22 +12,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final searchTextEditingController = TextEditingController();
-  final repository = PixabayImageItemRepository();
-  List<ImageItem> imageItems = [];
-  bool isLoading = false;
 
-  Future<void> searchImage(String query) async {
-    print(query);
-    setState(() {
-
-      isLoading = true;
-    });
-    imageItems = await repository.getImageItems(query);
-
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   @override
   void dispose() {
