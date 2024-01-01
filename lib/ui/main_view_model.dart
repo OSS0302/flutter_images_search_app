@@ -15,12 +15,12 @@ class MainViewModel {
 
   Future<void> searchImage(String query) async {
 
-    // 화면의 갱신
+      //stream 적용하기
     _streamLoadingController.add(true);
 
     _imageItems = await repository.getImageItems(query);
 
-    //화면의 갱신
+
     _streamLoadingController.add(false);
   }
 }
