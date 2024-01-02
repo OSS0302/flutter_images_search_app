@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image_search_app/model/image_item.dart';
-import 'package:flutter_image_search_app/repository/image_item_repository.dart';
-
+import 'package:flutter_image_search_app/ui/image_item_weiget/image_item_widget.dart';
+import 'package:flutter_image_search_app/ui/main_veiw_model.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,77 +11,68 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  TextEditingController textEditingController = TextEditingController();
+  final searchTextEditingController = TextEditingController();
+
 
   @override
   void dispose() {
-    textEditingController.dispose();
+    searchTextEditingController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MainViewModel>();
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: TextField(
-                controller: textEditingController,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextField(
+                controller: searchTextEditingController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide:
-                    const BorderSide(width: 2, color: Color(0xFF4FB6B2)),
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: Color(0xFF4FB6B2),
+                    ),
                   ),
-                  hintText: 'search',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: Color(0xFF4FB6B2),
+                    ),
+                  ),
+                  hintText: 'Search',
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.search_rounded),
-                    onPressed: () {
-                      setState(() {
-
-                      });
-                    },
+                    icon: Icon(Icons.search, color: Color(0xFF4FB6B2)),
+                    onPressed: () =>
+                        viewModel.searchImage(searchTextEditingController.text),
                   ),
                 ),
               ),
-            ),
-            FutureBuilder<List<ImageItem>>(
-              future: PixabayItemRepository()
-                  .getImageItems(textEditingController.text),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-                final itemImages = snapshot.data!;
-                return Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GridView.builder(
-                      itemCount: itemImages.length,
-                      itemBuilder: (context, index) {
-                        final itemImage = itemImages[index];
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image.network(
-                            itemImage.imageUrl,
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                      gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 32,
-                        mainAxisSpacing: 32,
-                      ),
-                    ),
+              const SizedBox(height: 24),
+              viewModel.isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : Expanded(
+                child: GridView.builder(
+                  itemCount: viewModel.imageItems.length,
+                  itemBuilder: (context, index) {
+                    final imageItem = viewModel.imageItems[index];
+                    return ImageItemWidget(imageItem: imageItem);
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 32,
+                    mainAxisSpacing: 32,
                   ),
-                );
-              },
-            ),
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
