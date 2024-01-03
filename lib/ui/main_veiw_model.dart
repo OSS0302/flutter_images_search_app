@@ -21,11 +21,12 @@ class MainViewModel extends ChangeNotifier {
   Future<void> searchImage(String query) async {
       // 로딩기호
     _state = state.copyWith(isLoading: true);
+    notifyListeners();
     _state = state.copyWith(
       isLoading: false,
       imageItems: List.unmodifiable(
-          (await _repository.getImageItems(query)).take(3).toList()),
+          (await _repository.getImageItems(query)).take(5).toList()),
     );
-
+      notifyListeners();
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter_image_search_app/model/image_item.dart';
 
 class MainState {
   final List<ImageItem> imageItems;
-
   final bool isLoading;
 
 //<editor-fold desc="Data Methods">
