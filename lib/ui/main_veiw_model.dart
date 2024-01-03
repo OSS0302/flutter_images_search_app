@@ -3,18 +3,27 @@ import 'package:flutter_image_search_app/model/image_item.dart';
 import 'package:flutter_image_search_app/repository/image_item_repository.dart';
 
 class MainViewModel extends ChangeNotifier {
-  final repository = PixabayItemRepository();
+  final ImageItemRepository _repository;
 
-  List<ImageItem> imageItems = [];
+  MainViewModel({
+    required ImageItemRepository repository,
+  }) : _repository = repository;
 
-  bool isLoading = false;
+  List<ImageItem> _imageItems = [];
+
+  List<ImageItem> get imageItems => List.unmodifiable(_imageItems);
+
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
 
   Future<void> searchImage(String query) async {
-    isLoading = true;
+    _isLoading = true;
     notifyListeners();
 
-    imageItems = await repository.getImageItems(query);
-    isLoading = false;
+    _imageItems = (await _repository.getImageItems(query)).take(6).toList();
+
+    _isLoading = false;
     notifyListeners();
   }
 }
