@@ -16,17 +16,18 @@ class MainViewModel extends ChangeNotifier {
     required ImageItemRepository repository,
   }) : _repository = repository;
 
-
-
   Future<void> searchImage(String query) async {
-      // 로딩기호
+    // 로딩기호
     _state = state.copyWith(isLoading: true);
     notifyListeners();
+
+    final results = (await _repository.getImageItems(query)).take(3).toList();
+
     _state = state.copyWith(
       isLoading: false,
-      imageItems: List.unmodifiable(
-          (await _repository.getImageItems(query)).take(5).toList()),
+
+      imageItems: results,
     );
-      notifyListeners();
+    notifyListeners();
   }
 }
