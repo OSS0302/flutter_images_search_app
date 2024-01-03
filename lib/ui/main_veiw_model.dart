@@ -5,11 +5,9 @@ import 'package:flutter_image_search_app/ui/main_state.dart';
 class MainViewModel extends ChangeNotifier {
   final ImageItemRepository _repository;
 
-  MainState _state = MainState(
-    imageItems: List.unmodifiable([]),
-    isLoading: false,
-  );
+  MainState _state = MainState();
 
+  // 메인 스테이트 만 변수
   MainState get state => _state;
 
   MainViewModel({
@@ -21,7 +19,7 @@ class MainViewModel extends ChangeNotifier {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    final results = (await _repository.getImageItems(query)).take(3).toList();
+    final results = (await _repository.getImageItems(query)).take(5).toList();
 
     _state = state.copyWith(
       isLoading: false,
