@@ -1,16 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_image_search_app/model/image_item.dart';
 import 'package:flutter_image_search_app/repository/image_item_repository.dart';
 import 'package:flutter_image_search_app/result_core/result.dart';
+import 'package:flutter_image_search_app/ui/main_event.dart';
 import 'package:flutter_image_search_app/ui/main_state.dart';
 
 final class MainViewModel extends ChangeNotifier {
   final ImageItemRepository _repository;
 
-  // 얘만 변수
+  // MainState는 변수 다.
   MainState _state = const MainState();
 
   MainState get state => _state;
+
+  final _eventController = StreamController<MainEvent>();
+
+  Stream<MainEvent> get eventStream => _eventController.stream;
 
   MainViewModel({
     required ImageItemRepository repository,
@@ -32,9 +39,10 @@ final class MainViewModel extends ChangeNotifier {
           imageItems: result.data.take(3).toList(),
         );
         notifyListeners();
+        _eventController.add(MainEvent.showSnackBar('성공!'));
         // 실패하면  에러문구 보여줘
       case Error<List<ImageItem>>():
-        print('에러가 납니다. ');
+        _eventController.add(MainEvent.showSnackBar(result.e.toString()));
       case Loading<List<ImageItem>>():
         print('로딩중');
     }
