@@ -18,25 +18,29 @@ class _MainScreenState extends State<MainScreen> {
 
   StreamSubscription<MainEvent>? subscription;
 
-
   @override
   void initState() {
     super.initState();
-
+    //microtask는 다른 Future함수들보다 먼저 작업 완료는 기능
     Future.microtask(() {
-      context.read<MainViewModel>().eventStream.listen((event) {
-        switch(event) {
+     subscription = context.read<MainViewModel>().eventStream.listen((event) {
+        switch (event) {
           case ShowSnackBar():
             final snackBar = SnackBar(
               content: Text(event.message),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           case ShowDialog():
-          // showDialog(context: context, builder: (context) {
-          // });
         }
       });
     });
+  }
+  // 메모리 줄어주기 위해서 사용
+  @override
+  void dispose() {
+    subscription?.cancel();
+    searchTextEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,19 +84,20 @@ class _MainScreenState extends State<MainScreen> {
               state.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : Expanded(
-                child: GridView.builder(
-                  itemCount: state.imageItems.length,
-                  itemBuilder: (context, index) {
-                    final imageItem = state.imageItems[index];
-                    return ImageItemWidget(imageItem: imageItem);
-                  },
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 32,
-                    mainAxisSpacing: 32,
-                  ),
-                ),
-              ),
+                      child: GridView.builder(
+                        itemCount: state.imageItems.length,
+                        itemBuilder: (context, index) {
+                          final imageItem = state.imageItems[index];
+                          return ImageItemWidget(imageItem: imageItem);
+                        },
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 32,
+                          mainAxisSpacing: 32,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),
