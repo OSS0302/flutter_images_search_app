@@ -50,8 +50,10 @@ class _MainScreenState extends State<MainScreen> {
                   hintText: 'Search',
                   suffixIcon: IconButton(
                     icon: Icon(Icons.search, color: Color(0xFF4FB6B2)),
-                    onPressed: () =>
-                        viewModel.searchImage(searchTextEditingController.text),
+                    onPressed: () async {
+                      await viewModel
+                          .searchImage(searchTextEditingController.text);
+                    },
                   ),
                 ),
               ),

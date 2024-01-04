@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image_search_app/model/image_item.dart';
 import 'package:flutter_image_search_app/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/result_core/result.dart';
 import 'package:flutter_image_search_app/ui/main_state.dart';
 
-class MainViewModel extends ChangeNotifier {
+final class MainViewModel extends ChangeNotifier {
   final ImageItemRepository _repository;
 
-  MainState _state = MainState();
+  // 얘만 변수
+  MainState _state = const MainState();
 
-  // 메인 스테이트 만 변수
   MainState get state => _state;
 
   MainViewModel({
@@ -15,17 +17,26 @@ class MainViewModel extends ChangeNotifier {
   }) : _repository = repository;
 
   Future<void> searchImage(String query) async {
-    // 로딩기호
+    // 카피
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    final results = (await _repository.getImageItems(query)).take(5).toList();
+    final result = await _repository.getImageItems(query);
 
-    _state = state.copyWith(
-      isLoading: false,
-
-      imageItems: results,
-    );
-    notifyListeners();
+    switch(result) {
+      //성공하면  리스트 이미지 아이템을 보여주는데 로딩 끄고 3개의 사진데이터만 보여줘
+      case Success<List<ImageItem>>():
+      // 로딩
+        _state = state.copyWith(
+          isLoading: false,
+          imageItems: result.data.take(3).toList(),
+        );
+        notifyListeners();
+        // 실패하면  에러문구 보여줘
+      case Error<List<ImageItem>>():
+        print('에러가 납니다. ');
+      case Loading<List<ImageItem>>():
+        print('로딩중');
+    }
   }
 }
