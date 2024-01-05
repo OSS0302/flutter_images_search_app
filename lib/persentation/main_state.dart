@@ -1,4 +1,4 @@
-import 'package:flutter_image_search_app/model/image_item.dart';
+import 'package:flutter_image_search_app/domain/model/image_item.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 

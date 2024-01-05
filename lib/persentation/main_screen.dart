@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_image_search_app/ui/image_item_weiget/image_item_widget.dart';
-import 'package:flutter_image_search_app/ui/main_event.dart';
-import 'package:flutter_image_search_app/ui/main_veiw_model.dart';
+import 'package:flutter_image_search_app/persentation/image_item_weiget/image_item_widget.dart';
+import 'package:flutter_image_search_app/persentation/main_event.dart';
+import 'package:flutter_image_search_app/persentation/main_veiw_model.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
     //microtask는 다른 Future함수들보다 먼저 작업 완료는 기능
     Future.microtask(() {
      subscription = context.read<MainViewModel>().eventStream.listen((event) {

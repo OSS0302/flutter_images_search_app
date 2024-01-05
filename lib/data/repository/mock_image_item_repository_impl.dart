@@ -1,5 +1,5 @@
-import 'package:flutter_image_search_app/model/image_item.dart';
-import 'package:flutter_image_search_app/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/domain/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/domain/model/image_item.dart';
 import 'package:flutter_image_search_app/result_core/result.dart';
 
 class MockImageItemRepositoryImpl implements ImageItemRepository {

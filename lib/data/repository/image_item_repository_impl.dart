@@ -1,7 +1,7 @@
-import 'package:flutter_image_search_app/data_source/pixabay_api.dart';
-import 'package:flutter_image_search_app/mapper/image_mapper.dart';
-import 'package:flutter_image_search_app/model/image_item.dart';
-import 'package:flutter_image_search_app/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/data/data_source/pixabay_api.dart';
+import 'package:flutter_image_search_app/data/mapper/image_mapper.dart';
+import 'package:flutter_image_search_app/domain/repository/image_item_repository.dart';
+import 'package:flutter_image_search_app/domain/model/image_item.dart';
 import 'package:flutter_image_search_app/result_core/result.dart';
 
 @override
@@ -22,6 +22,7 @@ class ImageItemRepositoryImpl implements ImageItemRepository {
     } catch (e) {
       return Result.error(Exception(e.toString()));
     }
+
   }
 
 
