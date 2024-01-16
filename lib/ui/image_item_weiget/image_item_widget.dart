@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_image_search_app/model/image_item.dart';
 
 class ImageItemWidget extends StatelessWidget {
@@ -12,7 +12,10 @@ class ImageItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(imageItem.imageUrl, fit: BoxFit.cover
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Image.network(imageItem.imageUrl, fit: BoxFit.cover
+      ),
     );
   }
 }
