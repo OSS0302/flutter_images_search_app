@@ -363,6 +363,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+
   nested:
     dependency: transitive
     description:
@@ -371,6 +372,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+
   package_config:
     dependency: transitive
     description:
@@ -379,6 +381,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+
   path:
     dependency: transitive
     description:
@@ -395,6 +398,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+
   provider:
     dependency: "direct main"
     description:
@@ -402,7 +406,7 @@ packages:
       sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.1
   pub_semver:
     dependency: transitive
     description:
@@ -435,6 +439,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+
   sky_engine:
     dependency: transitive
     description: flutter
@@ -571,3 +576,4 @@ packages:
 sdks:
   dart: ">=3.2.2 <4.0.0"
   flutter: ">=3.10.0"
+

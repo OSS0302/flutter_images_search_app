@@ -3,6 +3,7 @@ import 'package:flutter_image_search_app/di/di_setup.dart';
 import 'package:flutter_image_search_app/ui/main_screen.dart';
 import 'package:flutter_image_search_app/ui/main_veiw_model.dart';
 import 'package:flutter_image_search_app/ui/routes.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {

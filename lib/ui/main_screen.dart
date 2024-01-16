@@ -47,6 +47,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
     final state = viewModel.state;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -77,6 +78,7 @@ class _MainScreenState extends State<MainScreen> {
                       await viewModel
                           .searchImage(searchTextEditingController.text);
                     },
+
                   ),
                 ),
               ),
